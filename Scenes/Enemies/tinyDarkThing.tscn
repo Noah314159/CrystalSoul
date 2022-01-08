@@ -1,0 +1,130 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Scripts/Enemy-scripts/tinyDarkThing.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Enemies/darkThing.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Hit-HurtBox/HurtBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Enemies/TinyHealthBar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Misc/SoftCollision.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Enemies/PlayerDetectionArea.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Enemies/EnemyStats.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Hit-HurtBox/HitBox.tscn" type="PackedScene" id=8]
+
+[sub_resource type="CircleShape2D" id=10]
+radius = 204.01
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 247.0
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 72.0278
+
+[sub_resource type="CircleShape2D" id=8]
+radius = 7.07107
+
+[sub_resource type="CircleShape2D" id=11]
+radius = 9.0
+
+[sub_resource type="CapsuleShape2D" id=9]
+radius = 2.0
+height = 10.0
+
+[node name="tinyDarkThing" type="KinematicBody2D"]
+collision_layer = 16
+script = ExtResource( 1 )
+
+[node name="AttackRange" parent="." instance=ExtResource( 6 )]
+position = Vector2( -7, -9 )
+
+[node name="CollisionShape2D" parent="AttackRange" index="0"]
+position = Vector2( 7, 8 )
+shape = SubResource( 10 )
+
+[node name="PlayerDetectionArea" parent="." instance=ExtResource( 6 )]
+
+[node name="CollisionShape2D" parent="PlayerDetectionArea" index="0"]
+shape = SubResource( 6 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -7 )
+frames = SubResource( 5 )
+
+[node name="EnemyStats" parent="." instance=ExtResource( 7 )]
+max_health = 10
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="FleeRange" parent="." instance=ExtResource( 6 )]
+
+[node name="CollisionShape2D" parent="FleeRange" index="0"]
+shape = SubResource( 7 )
+
+[node name="SoftCollision" parent="." instance=ExtResource( 5 )]
+
+[node name="CollisionShape2D" parent="SoftCollision" index="0"]
+shape = SubResource( 8 )
+
+[node name="HurtBox" parent="." instance=ExtResource( 3 )]
+collision_layer = 8
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2( 0, -6 )
+shape = SubResource( 11 )
+
+[node name="TinyHealthBar" parent="." instance=ExtResource( 4 )]
+margin_left = -7.0
+margin_top = -9.0
+margin_right = -7.0
+margin_bottom = -9.0
+
+[node name="TextureProgress" parent="TinyHealthBar" index="0"]
+margin_left = -1.0
+margin_right = 39.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1, -1 )
+rotation = 1.5708
+shape = SubResource( 9 )
+
+[node name="HitBox" parent="." instance=ExtResource( 8 )]
+collision_mask = 4
+damage = 5
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2( 0, -7 )
+disabled = false
+
+[connection signal="no_health" from="EnemyStats" to="." method="_on_EnemyStats_no_health"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+
+[editable path="AttackRange"]
+[editable path="PlayerDetectionArea"]
+[editable path="FleeRange"]
+[editable path="SoftCollision"]
+[editable path="HurtBox"]
+[editable path="TinyHealthBar"]
+[editable path="HitBox"]

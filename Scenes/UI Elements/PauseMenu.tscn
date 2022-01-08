@@ -1,0 +1,526 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Fonts/manaspc.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=9]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=10]
+default_font = SubResource( 9 )
+
+[sub_resource type="GDScript" id=13]
+script/source = "extends Control
+
+
+signal resume_pressed
+signal quit_pressed
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_Resume_pressed():
+	emit_signal(\"resume_pressed\")
+
+
+func _on_Quit_pressed():
+	emit_signal(\"quit_pressed\")
+"
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=6]
+default_font = SubResource( 5 )
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=8]
+default_font = SubResource( 7 )
+
+[sub_resource type="DynamicFont" id=11]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=12]
+default_font = SubResource( 11 )
+
+[node name="Control" type="Control"]
+anchor_left = -0.182
+anchor_top = -0.2
+anchor_right = 0.189
+anchor_bottom = 0.183
+margin_left = -0.815994
+margin_top = -1.0
+margin_right = 0.231995
+margin_bottom = 0.0999947
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource( 10 )
+script = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="."]
+margin_top = 1.0
+margin_right = 187.0
+margin_bottom = 114.0
+grow_horizontal = 0
+theme = SubResource( 2 )
+drag_to_rearrange_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main" type="VBoxContainer" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 34.0
+margin_right = -4.0
+margin_bottom = -4.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resume" type="Button" parent="TabContainer/Main"]
+margin_right = 179.0
+margin_bottom = 22.0
+theme = SubResource( 4 )
+text = "Resume"
+
+[node name="Options" type="Button" parent="TabContainer/Main"]
+margin_top = 26.0
+margin_right = 179.0
+margin_bottom = 48.0
+theme = SubResource( 6 )
+text = "Options"
+
+[node name="Quit" type="Button" parent="TabContainer/Main"]
+margin_top = 52.0
+margin_right = 179.0
+margin_bottom = 74.0
+theme = SubResource( 8 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="GridContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 34.0
+margin_right = -4.0
+margin_bottom = -4.0
+theme = SubResource( 12 )
+
+[node name="Level" type="HBoxContainer" parent="TabContainer/Stats"]
+margin_right = 176.0
+margin_bottom = 16.0
+alignment = 1
+
+[node name="level" type="Label" parent="TabContainer/Stats/Level"]
+margin_left = 47.0
+margin_right = 113.0
+margin_bottom = 16.0
+text = "Level:"
+
+[node name="numLevel" type="Label" parent="TabContainer/Stats/Level"]
+margin_left = 117.0
+margin_right = 128.0
+margin_bottom = 16.0
+text = "1"
+
+[node name="xp" type="HBoxContainer" parent="TabContainer/Stats"]
+margin_top = 20.0
+margin_right = 176.0
+margin_bottom = 36.0
+alignment = 1
+
+[node name="(" type="Label" parent="TabContainer/Stats/xp"]
+margin_left = 41.0
+margin_right = 52.0
+margin_bottom = 16.0
+text = "("
+
+[node name="currentXP" type="Label" parent="TabContainer/Stats/xp"]
+margin_left = 56.0
+margin_right = 78.0
+margin_bottom = 16.0
+text = "20"
+
+[node name="slash" type="Label" parent="TabContainer/Stats/xp"]
+margin_left = 82.0
+margin_right = 93.0
+margin_bottom = 16.0
+text = "/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nextLevelXP" type="Label" parent="TabContainer/Stats/xp"]
+margin_left = 97.0
+margin_right = 119.0
+margin_bottom = 16.0
+text = "60"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name=")" type="Label" parent="TabContainer/Stats/xp"]
+margin_left = 123.0
+margin_right = 134.0
+margin_bottom = 16.0
+text = ")"
+
+[node name="attributes" type="HBoxContainer" parent="TabContainer/Stats"]
+margin_top = 40.0
+margin_right = 176.0
+margin_bottom = 75.0
+alignment = 1
+
+[node name="attributes" type="Label" parent="TabContainer/Stats/attributes"]
+margin_left = 27.0
+margin_right = 148.0
+margin_bottom = 35.0
+text = "
+Attributes:"
+align = 1
+
+[node name="Unspent" type="HBoxContainer" parent="TabContainer/Stats"]
+margin_top = 79.0
+margin_right = 176.0
+margin_bottom = 95.0
+alignment = 1
+
+[node name="unspent" type="Label" parent="TabContainer/Stats/Unspent"]
+margin_left = 9.0
+margin_right = 141.0
+margin_bottom = 16.0
+text = "Unallocated:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="numUnspent" type="Label" parent="TabContainer/Stats/Unspent"]
+margin_left = 145.0
+margin_right = 167.0
+margin_bottom = 16.0
+text = "20"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health" type="HBoxContainer" parent="TabContainer/Stats"]
+margin_top = 99.0
+margin_right = 176.0
+margin_bottom = 121.0
+
+[node name="health" type="Label" parent="TabContainer/Stats/Health"]
+margin_top = 3.0
+margin_right = 77.0
+margin_bottom = 19.0
+text = "Health:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer2" type="Label" parent="TabContainer/Stats/Health"]
+margin_left = 81.0
+margin_top = 3.0
+margin_right = 81.0
+margin_bottom = 19.0
+
+[node name="numHealth" type="Label" parent="TabContainer/Stats/Health"]
+margin_left = 85.0
+margin_top = 3.0
+margin_right = 107.0
+margin_bottom = 19.0
+text = "10"
+
+[node name="Spacer" type="Label" parent="TabContainer/Stats/Health"]
+margin_left = 111.0
+margin_top = 3.0
+margin_right = 122.0
+margin_bottom = 19.0
+text = " "
+
+[node name="minusHealth" type="Button" parent="TabContainer/Stats/Health"]
+margin_left = 126.0
+margin_right = 149.0
+margin_bottom = 22.0
+text = "-"
+
+[node name="plusHealth" type="Button" parent="TabContainer/Stats/Health"]
+margin_left = 153.0
+margin_right = 176.0
+margin_bottom = 22.0
+text = "+"
+
+[node name="Energy" type="HBoxContainer" parent="TabContainer/Stats"]
+margin_top = 125.0
+margin_right = 176.0
+margin_bottom = 147.0
+
+[node name="energy" type="Label" parent="TabContainer/Stats/Energy"]
+margin_top = 3.0
+margin_right = 77.0
+margin_bottom = 19.0
+text = "Energy:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer" type="Label" parent="TabContainer/Stats/Energy"]
+margin_left = 81.0
+margin_top = 3.0
+margin_right = 81.0
+margin_bottom = 19.0
+
+[node name="numEnergy" type="Label" parent="TabContainer/Stats/Energy"]
+margin_left = 85.0
+margin_top = 3.0
+margin_right = 107.0
+margin_bottom = 19.0
+text = "10"
+
+[node name="Spacer2" type="Label" parent="TabContainer/Stats/Energy"]
+margin_left = 111.0
+margin_top = 3.0
+margin_right = 122.0
+margin_bottom = 19.0
+text = " "
+
+[node name="minusEnergy" type="Button" parent="TabContainer/Stats/Energy"]
+margin_left = 126.0
+margin_right = 149.0
+margin_bottom = 22.0
+text = "-"
+
+[node name="plusEnergy" type="Button" parent="TabContainer/Stats/Energy"]
+margin_left = 153.0
+margin_right = 176.0
+margin_bottom = 22.0
+text = "+"
+
+[node name="Speed" type="HBoxContainer" parent="TabContainer/Stats"]
+margin_top = 151.0
+margin_right = 176.0
+margin_bottom = 173.0
+
+[node name="name" type="Label" parent="TabContainer/Stats/Speed"]
+margin_top = 3.0
+margin_right = 66.0
+margin_bottom = 19.0
+text = "Speed:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer" type="Label" parent="TabContainer/Stats/Speed"]
+margin_left = 70.0
+margin_top = 3.0
+margin_right = 81.0
+margin_bottom = 19.0
+text = " "
+
+[node name="number" type="Label" parent="TabContainer/Stats/Speed"]
+margin_left = 85.0
+margin_top = 3.0
+margin_right = 107.0
+margin_bottom = 19.0
+text = "00"
+
+[node name="Spacer2" type="Label" parent="TabContainer/Stats/Speed"]
+margin_left = 111.0
+margin_top = 3.0
+margin_right = 122.0
+margin_bottom = 19.0
+text = " "
+
+[node name="minusSpeed" type="Button" parent="TabContainer/Stats/Speed"]
+margin_left = 126.0
+margin_right = 149.0
+margin_bottom = 22.0
+text = "-"
+
+[node name="plusSpeed" type="Button" parent="TabContainer/Stats/Speed"]
+margin_left = 153.0
+margin_right = 176.0
+margin_bottom = 22.0
+text = "+"
+
+[node name="Power" type="HBoxContainer" parent="TabContainer/Stats"]
+margin_top = 177.0
+margin_right = 176.0
+margin_bottom = 199.0
+
+[node name="name" type="Label" parent="TabContainer/Stats/Power"]
+margin_top = 3.0
+margin_right = 66.0
+margin_bottom = 19.0
+text = "Power:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer" type="Label" parent="TabContainer/Stats/Power"]
+margin_left = 70.0
+margin_top = 3.0
+margin_right = 81.0
+margin_bottom = 19.0
+text = " "
+
+[node name="number" type="Label" parent="TabContainer/Stats/Power"]
+margin_left = 85.0
+margin_top = 3.0
+margin_right = 107.0
+margin_bottom = 19.0
+text = "00"
+
+[node name="Spacer2" type="Label" parent="TabContainer/Stats/Power"]
+margin_left = 111.0
+margin_top = 3.0
+margin_right = 122.0
+margin_bottom = 19.0
+text = " "
+
+[node name="minusPower" type="Button" parent="TabContainer/Stats/Power"]
+margin_left = 126.0
+margin_right = 149.0
+margin_bottom = 22.0
+text = "-"
+
+[node name="plusPower" type="Button" parent="TabContainer/Stats/Power"]
+margin_left = 153.0
+margin_right = 176.0
+margin_bottom = 22.0
+text = "+"
+
+[node name="Armor" type="HBoxContainer" parent="TabContainer/Stats"]
+margin_top = 203.0
+margin_right = 176.0
+margin_bottom = 225.0
+
+[node name="name" type="Label" parent="TabContainer/Stats/Armor"]
+margin_top = 3.0
+margin_right = 66.0
+margin_bottom = 19.0
+text = "Armor:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer" type="Label" parent="TabContainer/Stats/Armor"]
+margin_left = 70.0
+margin_top = 3.0
+margin_right = 81.0
+margin_bottom = 19.0
+text = " "
+
+[node name="number" type="Label" parent="TabContainer/Stats/Armor"]
+margin_left = 85.0
+margin_top = 3.0
+margin_right = 107.0
+margin_bottom = 19.0
+text = "00"
+
+[node name="Spacer2" type="Label" parent="TabContainer/Stats/Armor"]
+margin_left = 111.0
+margin_top = 3.0
+margin_right = 122.0
+margin_bottom = 19.0
+text = " "
+
+[node name="minusArmor" type="Button" parent="TabContainer/Stats/Armor"]
+margin_left = 126.0
+margin_right = 149.0
+margin_bottom = 22.0
+text = "-"
+
+[node name="plusArmor" type="Button" parent="TabContainer/Stats/Armor"]
+margin_left = 153.0
+margin_right = 176.0
+margin_bottom = 22.0
+text = "+"
+
+[node name="Recovery" type="HBoxContainer" parent="TabContainer/Stats"]
+margin_top = 229.0
+margin_right = 176.0
+margin_bottom = 251.0
+
+[node name="Recovery" type="Label" parent="TabContainer/Stats/Recovery"]
+margin_top = 3.0
+margin_right = 66.0
+margin_bottom = 19.0
+text = "Regen:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer" type="Label" parent="TabContainer/Stats/Recovery"]
+margin_left = 70.0
+margin_top = 3.0
+margin_right = 81.0
+margin_bottom = 19.0
+text = " "
+
+[node name="number" type="Label" parent="TabContainer/Stats/Recovery"]
+margin_left = 85.0
+margin_top = 3.0
+margin_right = 107.0
+margin_bottom = 19.0
+text = "00"
+
+[node name="Spacer2" type="Label" parent="TabContainer/Stats/Recovery"]
+margin_left = 111.0
+margin_top = 3.0
+margin_right = 122.0
+margin_bottom = 19.0
+text = " "
+
+[node name="minusRegen" type="Button" parent="TabContainer/Stats/Recovery"]
+margin_left = 126.0
+margin_right = 149.0
+margin_bottom = 22.0
+text = "-"
+
+[node name="plusRegen" type="Button" parent="TabContainer/Stats/Recovery"]
+margin_left = 153.0
+margin_right = 176.0
+margin_bottom = 22.0
+text = "+"
+
+[connection signal="pressed" from="TabContainer/Main/Resume" to="." method="_on_Resume_pressed"]
+[connection signal="pressed" from="TabContainer/Main/Quit" to="." method="_on_Quit_pressed"]

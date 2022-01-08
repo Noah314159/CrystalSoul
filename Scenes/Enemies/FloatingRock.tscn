@@ -1,0 +1,125 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Sprites/Enemies/FloatingRock.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Shadows/BiggerShadow.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Enemies/EnemyStats.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Misc/SoftCollision.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Hit-HurtBox/HurtBox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Enemies/PlayerDetectionArea.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Enemy-scripts/FloatingRock.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Enemies/TinyHealthBar.tscn" type="PackedScene" id=8]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 3.0
+
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 5.0
+height = 6.0
+
+[sub_resource type="CircleShape2D" id=8]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 135.0
+
+[sub_resource type="CircleShape2D" id=10]
+radius = 81.0062
+
+[sub_resource type="CircleShape2D" id=11]
+radius = 46.0
+
+[node name="FloatingRock" type="KinematicBody2D"]
+collision_layer = 16
+script = ExtResource( 7 )
+attackSpeed = 2
+
+[node name="BiggerShadow" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="TinyHealthBar" parent="." instance=ExtResource( 8 )]
+
+[node name="TextureProgress" parent="TinyHealthBar" index="0"]
+margin_left = -9.0
+margin_top = -13.0
+margin_right = 31.0
+margin_bottom = 27.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -14 )
+frames = SubResource( 5 )
+playing = true
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource( 6 )
+
+[node name="HurtBox" parent="." instance=ExtResource( 5 )]
+collision_layer = 8
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2( 0, -7 )
+shape = SubResource( 7 )
+
+[node name="EnemyStats" parent="." instance=ExtResource( 3 )]
+max_health = 2
+
+[node name="SoftCollision" parent="." instance=ExtResource( 4 )]
+
+[node name="CollisionShape2D" parent="SoftCollision" index="0"]
+shape = SubResource( 8 )
+
+[node name="PlayerDetectionArea" parent="." instance=ExtResource( 6 )]
+collision_mask = 130
+
+[node name="CollisionShape2D" parent="PlayerDetectionArea" index="0"]
+modulate = Color( 1, 1, 1, 0.211765 )
+shape = SubResource( 9 )
+
+[node name="AttackRange" parent="." instance=ExtResource( 6 )]
+
+[node name="CollisionShape2D" parent="AttackRange" index="0"]
+shape = SubResource( 10 )
+
+[node name="RayCast2D" parent="AttackRange" index="1"]
+position = Vector2( 0, -13 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="FleeRange" parent="." instance=ExtResource( 6 )]
+
+[node name="CollisionShape2D" parent="FleeRange" index="0"]
+shape = SubResource( 11 )
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="no_health" from="EnemyStats" to="." method="_on_EnemyStats_no_health"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+
+[editable path="TinyHealthBar"]
+[editable path="HurtBox"]
+[editable path="SoftCollision"]
+[editable path="PlayerDetectionArea"]
+[editable path="AttackRange"]
+[editable path="FleeRange"]

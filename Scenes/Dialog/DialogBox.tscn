@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/Dialog-scripts/RichTextLabel.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/manaspc.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="DialogBox" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 0, 0, 0, 0.462745 )
+polygon = PoolVector2Array( 128, 0, 128, 32, 0, 32, 0, 0 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Polygon2D"]
+margin_left = 6.0
+margin_top = 5.0
+margin_right = 470.0
+margin_bottom = 93.0
+rect_scale = Vector2( 0.5, 0.5 )
+theme = SubResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="Timer" to="Polygon2D/RichTextLabel" method="_on_Timer_timeout"]
